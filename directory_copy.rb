@@ -28,13 +28,13 @@ end
 def print_names(students)
   n2p = 0
   while n2p < students.length do
-    puts "#{students[n2p][:name]}, #{students[n2p][:cohort]} cohort, likes #{students[n2p][:sport]}, born in #{students[n2p][:country]}"
+    puts "#{students[n2p][:name]}, #{students[n2p][:cohort]} cohort, likes #{students[n2p][:sport]}, born in #{students[n2p][:country]}".center(80)
     n2p += 1
   end
 end
 
 def print_footer(names)
-  puts "Overall, we have #{names.count} great students"
+  puts "Overall, we have #{names.count} great students".center(80)
 end
 
 students = input_students
