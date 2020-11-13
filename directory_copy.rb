@@ -40,8 +40,8 @@ def input_students
 end
 
 def print_header
-  puts "The students of Villains Academy"
-  puts "-------------"
+  puts "The students of Villains Academy".center(80)
+  puts "-------------".center(80)
 end
 
 def print_names(students)
@@ -58,7 +58,7 @@ def print_names(students)
   #puts "Here are the students grouped by cohort".center(80)
   #puts cohort_group
   cohort_group.each do |key, value|
-    puts "#{key}: #{value.join(", ")}"
+    puts "#{key}: #{value.join(", ")}".center(80)
   end
 end
 
@@ -67,6 +67,8 @@ def print_footer(names)
 end
 
 students = input_students
-print_header
-print_names(students)
-print_footer(students)
+if students.length >= 1
+  print_header
+  print_names(students)
+  print_footer(students)
+end
