@@ -18,7 +18,7 @@ end
 
 def print_names(students)
   students.each do |student|
-    puts student[:name] if student[:name].start_with?("a")
+    puts student[:name] if student[:name].length < 12
   end
 end
 
