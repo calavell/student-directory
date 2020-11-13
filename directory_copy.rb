@@ -41,11 +41,18 @@ def print_header
 end
 
 def print_names(students)
-  n2p = 0
-  while n2p < students.length do
-    puts "#{students[n2p][:name]}, #{students[n2p][:cohort]} cohort, likes #{students[n2p][:sport]}, born in #{students[n2p][:country]}".center(80)
-    n2p += 1
+  cohort_group = {}
+  students.each do |student|
+    name = student[:name]
+    cohort = student[:cohort]
+    if cohort_group[cohort] == nil
+      cohort_group[cohort] = [name]
+    else
+      cohort_group[cohort].push(name)
+    end
   end
+  puts "Here are the students grouped by cohort".center(80)
+  puts cohort_group
 end
 
 def print_footer(names)
