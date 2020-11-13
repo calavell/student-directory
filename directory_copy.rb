@@ -1,21 +1,36 @@
 def input_students
-  puts "Please enter the name of a student"
-  puts "To finish just hit return twice"
   students = []
   counter = 0
-  name = gets.chomp
-  while !name.empty? do
-    students << {name: name, cohort: :november}
+  while true do
+    puts "Please enter the name of a student"
+    puts "To finish type 'exit'"
+    name = gets.chomp
+    if name == "exit"
+      break
+    elsif name == ""
+      name = "John"
+    end
+    students << {name: name}
+    puts "What cohort are you on?"
+    cohort = gets.chomp
+    if cohort == ""
+      cohort = "January"
+    end
+    students[counter][:cohort] = cohort
     puts "What is their favourite sport?"
     sport = gets.chomp
+    if sport == ""
+      sport = "football"
+    end
     students[counter][:sport] = sport
     puts "Where were they born?"
     country = gets.chomp
+    if country == ""
+      country = "Ireland"
+    end
     students[counter][:country] = country
     counter += 1
     puts "Now we have #{students.count} students"
-    puts "Please enter the name of a student"
-    name = gets.chomp
   end
   students
 end
