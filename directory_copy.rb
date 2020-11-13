@@ -17,8 +17,10 @@ def print_header
 end
 
 def print_names(students)
-  students.each do |student|
-    puts student[:name] if student[:name].length < 12
+  n2p = 0
+  while n2p < students.length do
+    puts "#{students[n2p][:name]}: #{students[n2p][:cohort]}"
+    n2p += 1
   end
 end
 
