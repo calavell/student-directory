@@ -17,8 +17,8 @@ def print_header
 end
 
 def print_names(students)
-  students.each_with_index do |val,index|
-    puts "#{index + 1}: #{val[:name]}"
+  students.each do |student|
+    puts student[:name] if student[:name].start_with?("a")
   end
 end
 
