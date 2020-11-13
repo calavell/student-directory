@@ -30,7 +30,11 @@ def input_students
     end
     students[counter][:country] = country
     counter += 1
-    puts "Now we have #{students.count} students"
+    if counter == 1
+      puts "Now we have #{students.count} student"
+    else
+      puts "Now we have #{students.count} students"
+    end
   end
   students
 end
