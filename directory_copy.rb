@@ -4,29 +4,29 @@ def input_students
   while true do
     puts "Please enter the name of a student"
     puts "To finish type 'exit'"
-    name = gets.chomp
+    name = gets.chop
     if name == "exit"
       break
     elsif name == ""
-      name = "John"
+      name = "john"
     end
     students << {name: name}
     puts "What cohort are you on?"
-    cohort = gets.chomp
+    cohort = gets.chop
     if cohort == ""
-      cohort = "January"
+      cohort = "january"
     end
     students[counter][:cohort] = cohort
     puts "What is their favourite sport?"
-    sport = gets.chomp
+    sport = gets.chop
     if sport == ""
       sport = "football"
     end
     students[counter][:sport] = sport
     puts "Where were they born?"
-    country = gets.chomp
+    country = gets.chop
     if country == ""
-      country = "Ireland"
+      country = "ireland"
     end
     students[counter][:country] = country
     counter += 1
@@ -55,12 +55,15 @@ def print_names(students)
       cohort_group[cohort].push(name)
     end
   end
-  puts "Here are the students grouped by cohort".center(80)
-  puts cohort_group
+  #puts "Here are the students grouped by cohort".center(80)
+  #puts cohort_group
+  cohort_group.each do |key, value|
+    puts "#{key}: #{value.join(", ")}"
+  end
 end
 
 def print_footer(names)
-  puts "Overall, we have #{names.count} great students".center(80)
+  puts "Overall, we have #{names.length} great students".center(80)
 end
 
 students = input_students
