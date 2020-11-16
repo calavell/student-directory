@@ -72,7 +72,7 @@ def save_students
   file_choice = STDIN.gets.chomp
   CSV.open(file_choice, "w") do |csv|
     @students.each do |student|
-      csv << [student[:name], student[:cohort]]
+      csv << [student[:name], student[:cohort]] #shovel operator vs. puts
     end
   end
 end
@@ -82,7 +82,7 @@ def load_students(filename = "students.csv") #default value
   puts "If you don't want to load from a file, press enter."
   file_choice = STDIN.gets.chomp
   if File.exists?(file_choice)
-    CSV.foreach(filename) do |row|
+    CSV.foreach(filename) do |row| #foreach is CSV method
       name = row[0]
       cohort = row[1]
       add_students(name, cohort)
