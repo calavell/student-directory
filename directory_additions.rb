@@ -27,7 +27,6 @@ def user_choice(selection)
 end
 
 def input_students
-  puts "Choice validated!"
   puts "Please enter the names of the students"
   puts "To finish just hit return twice"
   name = STDIN.gets.chomp #get the first name. STDIN specifies it is from keyboard
@@ -39,7 +38,6 @@ def input_students
 end
 
 def display_students
-  puts "Choice validated!"
   print_header
   print_student_list
   print_footer
@@ -61,7 +59,6 @@ def print_footer
 end
 
 def save_students
-  puts "Choice validated!"
   puts "Please enter the filename where you wish to save to"
   file = File.open(STDIN.gets.chomp, "w") #open the file for writing
   @students.each do |student| #iterate over students
@@ -72,20 +69,29 @@ def save_students
 end
 
 def load_students(filename = "students.csv") #default value
-  puts "Choice validated!"
-  file = File.open(filename, "r") #"r" means in read only mode
-  file.readlines.each do |line| #iterate over each line of file
-    name, cohort = line.chomp.split(",") #parallel assignment of 2 varialbes
-    add_students(name, cohort)
+  puts "What file do you want to load from?"
+  puts "If you don't want to load from a file, press enter."
+  file_choice = STDIN.gets.chomp
+  if File.exists?(file_choice)
+    file = File.open(file_choice, "r") #"r" means in read only mode
+    file.readlines.each do |line| #iterate over each line of file
+      name, cohort = line.chomp.split(",") #parallel assignment of 2 varialbes
+      add_students(name, cohort)
+    end
+    file.close
+    puts "Loaded #{@students.count} students from #{file_choice}"
+  elsif file_choice == ""
+    puts "No file uploaded"
+  else
+    puts "That file does not exist"
+    exit
   end
-  file.close
 end
 
 def try_load_students
   filename = ARGV.first #first argument from command line
   if filename.nil? #get out of method if no argument given
     load_students
-    puts "Loaded #{@students.count} from students.csv"
   elsif File.exists?(filename)
     load_students(filename)
     puts "Loaded #{@students.count} from #{filename}"
