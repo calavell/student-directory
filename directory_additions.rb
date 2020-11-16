@@ -38,7 +38,7 @@ def input_students
   name = STDIN.gets.chomp #get the first name. STDIN specifies it is from keyboard
   while !name.empty? do #enters loop if user types something
     #add the student hash to the array
-    @students << {name: name, cohort: :november}
+    add_students(name)
     puts "Now we have #{@students.count} students"
     name = STDIN.gets.chomp
   end
@@ -79,7 +79,7 @@ def load_students(filename = "students.csv") #default value
   file = File.open(filename, "r") #"r" means in read only mode
   file.readlines.each do |line| #iterate over each line of file
     name, cohort = line.chomp.split(",") #parallel assignment of 2 varialbes
-    @students << {name: name, cohort: cohort.to_sym}
+    add_students(name, cohort)
   end
   file.close
 end
@@ -94,6 +94,10 @@ def try_load_students
     puts "Sorry, #{filename} doesn't exist."
     exit #exits the program
   end
+end
+
+def add_students(name, cohort = "november")
+  @students << {name: name, cohort: cohort.to_sym}
 end
 
 try_load_students
