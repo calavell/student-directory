@@ -1,5 +1,5 @@
 @students = [] #array is accessible to all methods
-
+require 'csv'
 def interactive_menu
   loop do
     print_menu
@@ -67,13 +67,12 @@ def print_footer
   puts "Overall, we have #{@students.count} great students"
 end
 
-def save_students#almost there
+def save_students
   puts "Please enter the filename where you wish to save to"
   file_choice = STDIN.gets.chomp
-  file = File.open(file_choice, "w") do |file| #by utilising "do", no need to manually close file
-    @students.each do |student| #iterate over students
-      student_data = [student[:name], student[:cohort]] #pulls data from @students
-      file.puts student_data.join(",") #converts student_data to string and pushes to file
+  CSV.open(file_choice, "w") do |csv|
+    @students.each do |student|
+      csv << [student[:name], student[:cohort]]
     end
   end
 end
