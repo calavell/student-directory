@@ -10,7 +10,7 @@ end
 def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
-  puts "3. Save the list to students.csv"
+  puts "3. Save the list to local file"
   puts "4. Load the list from students.csv"
   puts "9. exit"
 end
@@ -62,7 +62,8 @@ end
 
 def save_students
   puts "Choice validated!"
-  file = File.open("students.csv", "w") #open the file for writing
+  puts "Please enter the filename where you wish to save to"
+  file = File.open(STDIN.gets.chomp, "w") #open the file for writing
   @students.each do |student| #iterate over students
     student_data = [student[:name], student[:cohort]] #pulls data from @students
     file.puts student_data.join(",") #converts student_data to string and pushes to file
