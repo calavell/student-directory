@@ -17,11 +17,20 @@ end
 
 def user_choice(selection)
   case selection
-  when "1" then input_students
-  when "2" then display_students
-  when "3" then save_students
-  when "4" then load_students
-  when "9" then exit
+  when "1"
+    puts "You have chosen option 1"
+    input_students
+  when "2"
+    puts "You have chosen option 2"
+    display_students
+  when "3"
+    puts "You have chosen option 3"
+    save_students
+  when "4"
+    puts "You have chosen option 4"
+    load_students
+  when "9"
+    exit
   else puts "I don't know what you meant, try again"
   end
 end
