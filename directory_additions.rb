@@ -58,14 +58,15 @@ def print_footer
   puts "Overall, we have #{@students.count} great students"
 end
 
-def save_students
+def save_students#almost there
   puts "Please enter the filename where you wish to save to"
-  file = File.open(STDIN.gets.chomp, "w") #open the file for writing
-  @students.each do |student| #iterate over students
-    student_data = [student[:name], student[:cohort]] #pulls data from @students
-    file.puts student_data.join(",") #converts student_data to string and pushes to file
+  file_choice = STDIN.gets.chomp
+  file = File.open(file_choice, "w") do |file| #by utilising "do", no need to manually close file
+    @students.each do |student| #iterate over students
+      student_data = [student[:name], student[:cohort]] #pulls data from @students
+      file.puts student_data.join(",") #converts student_data to string and pushes to file
+    end
   end
-  file.close #any method which opens a file must then close it
 end
 
 def load_students(filename = "students.csv") #default value
@@ -73,12 +74,12 @@ def load_students(filename = "students.csv") #default value
   puts "If you don't want to load from a file, press enter."
   file_choice = STDIN.gets.chomp
   if File.exists?(file_choice)
-    file = File.open(file_choice, "r") #"r" means in read only mode
-    file.readlines.each do |line| #iterate over each line of file
-      name, cohort = line.chomp.split(",") #parallel assignment of 2 varialbes
-      add_students(name, cohort)
+    file = File.open(file_choice, "r") do |file| #"r" means in read only mode
+      file.readlines.each do |line| #iterate over each line of file
+        name, cohort = line.chomp.split(",") #parallel assignment of 2 varialbes
+        add_students(name, cohort)
+      end
     end
-    file.close
     puts "Loaded #{@students.count} students from #{file_choice}"
   elsif file_choice == ""
     puts "No file uploaded"
