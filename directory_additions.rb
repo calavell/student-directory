@@ -3,7 +3,7 @@
 def interactive_menu
   loop do
     print_menu
-    process(STDIN.gets.chomp)#input from keyboard
+    user_choice(STDIN.gets.chomp)#input from keyboard
   end
 end
 
@@ -15,36 +15,31 @@ def print_menu
   puts "9. exit"
 end
 
-def process(selection)
+def user_choice(selection)
   case selection
-  when "1"
-    input_students
-  when "2"
-    show_students
-  when "3"
-    save_students
-  when "4"
-    load_students
-  when "9"
-    exit #this will cause program to terminate
-  else
-    puts "I don't know what you meant, try again"
+  when "1" then input_students
+  when "2" then display_students
+  when "3" then save_students
+  when "4" then load_students
+  when "9" then exit
+  else puts "I don't know what you meant, try again"
   end
 end
 
 def input_students
+  puts "Choice validated!"
   puts "Please enter the names of the students"
   puts "To finish just hit return twice"
   name = STDIN.gets.chomp #get the first name. STDIN specifies it is from keyboard
   while !name.empty? do #enters loop if user types something
-    #add the student hash to the array
-    add_students(name)
+    add_students(name) #add the student hash to the array
     puts "Now we have #{@students.count} students"
     name = STDIN.gets.chomp
   end
 end
 
-def show_students
+def display_students
+  puts "Choice validated!"
   print_header
   print_student_list
   print_footer
@@ -66,16 +61,17 @@ def print_footer
 end
 
 def save_students
+  puts "Choice validated!"
   file = File.open("students.csv", "w") #open the file for writing
   @students.each do |student| #iterate over students
     student_data = [student[:name], student[:cohort]] #pulls data from @students
-    csv_line = student_data.join(",") #converst data to string
-    file.puts csv_line
+    file.puts student_data.join(",") #converts student_data to string and pushes to file
   end
   file.close #any method which opens a file must then close it
 end
 
 def load_students(filename = "students.csv") #default value
+  puts "Choice validated!"
   file = File.open(filename, "r") #"r" means in read only mode
   file.readlines.each do |line| #iterate over each line of file
     name, cohort = line.chomp.split(",") #parallel assignment of 2 varialbes
