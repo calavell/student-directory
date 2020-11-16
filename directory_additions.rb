@@ -82,11 +82,10 @@ def load_students(filename = "students.csv") #default value
   puts "If you don't want to load from a file, press enter."
   file_choice = STDIN.gets.chomp
   if File.exists?(file_choice)
-    file = File.open(file_choice, "r") do |file| #"r" means in read only mode
-      file.readlines.each do |line| #iterate over each line of file
-        name, cohort = line.chomp.split(",") #parallel assignment of 2 varialbes
-        add_students(name, cohort)
-      end
+    CSV.foreach(filename) do |row|
+      name = row[0]
+      cohort = row[1]
+      add_students(name, cohort)
     end
     puts "Loaded #{@students.count} students from #{file_choice}"
   elsif file_choice == ""
