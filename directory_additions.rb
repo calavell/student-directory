@@ -17,21 +17,22 @@ end
 
 def user_choice(selection)
   case selection
-  when "1"
-    puts "You have chosen option 1"
-    input_students
-  when "2"
-    puts "You have chosen option 2"
-    display_students
-  when "3"
-    puts "You have chosen option 3"
-    save_students
-  when "4"
-    puts "You have chosen option 4"
-    load_students
-  when "9"
-    exit
-  else puts "I don't know what you meant, try again"
+    when "1"
+      puts "You have chosen option 1"
+      input_students
+    when "2"
+      puts "You have chosen option 2"
+      display_students
+    when "3"
+      puts "You have chosen option 3"
+      save_students
+    when "4"
+      puts "You have chosen option 4"
+      what_file
+    when "9"
+      exit
+    else
+      puts "I don't know what you meant, try again"
   end
 end
 
@@ -77,17 +78,21 @@ def save_students
   end
 end
 
-def load_students(filename = "students.csv") #default value
+def what_file
   puts "What file do you want to load from?"
   puts "If you don't want to load from a file, press enter."
-  file_choice = STDIN.gets.chomp
-  if File.exists?(file_choice)
+  filename = STDIN.gets.chomp
+  load_students(filename)
+end
+
+def load_students(filename = "students.csv")
+  if File.exists?(filename)
     CSV.foreach(filename) do |row| #foreach is CSV method
       name = row[0]
       cohort = row[1]
       add_students(name, cohort)
     end
-    puts "Loaded #{@students.count} students from #{file_choice}"
+    puts "Loaded #{@students.count} students from #{filename}"
   elsif file_choice == ""
     puts "No file uploaded"
   else
@@ -98,9 +103,8 @@ end
 
 def try_load_students
   filename = ARGV.first #first argument from command line
-  if filename.nil? #get out of method if no argument given
-    load_students
-  elsif File.exists?(filename)
+  return if filename.nil? #if no argument given
+  if File.exists?(filename)
     load_students(filename)
     puts "Loaded #{@students.count} from #{filename}"
   else #if it doesn't exist
