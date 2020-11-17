@@ -12,31 +12,22 @@ def print_menu
   puts "2. Show the students"
   puts "3. Save the list to local file"
   puts "4. Load the list from students.csv"
-  puts "9. exit"
+  puts "9. Exit"
 end
 
 def user_choice(selection)
   case selection
-    when "1"
-      puts "You have chosen option 1"
-      input_students
-    when "2"
-      puts "You have chosen option 2"
-      display_students
-    when "3"
-      puts "You have chosen option 3"
-      save_students
-    when "4"
-      puts "You have chosen option 4"
-      what_file
-    when "9"
-      exit
-    else
-      puts "I don't know what you meant, try again"
+  when "1" then input_students
+  when "2" then display_students
+  when "3" then save_students
+  when "4" then what_file
+  when "9" then exit
+  else puts "I don't know what you meant, try again"
   end
 end
 
 def input_students
+  puts "You have chosen option 1"
   puts "Please enter the names of the students"
   puts "To finish just hit return twice"
   name = STDIN.gets.chomp #get the first name. STDIN specifies it is from keyboard
@@ -48,6 +39,7 @@ def input_students
 end
 
 def display_students
+  puts "You have chosen option 2"
   print_header
   print_student_list
   print_footer
@@ -69,6 +61,7 @@ def print_footer
 end
 
 def save_students
+  puts "You have chosen option 3"
   puts "Please enter the filename where you wish to save to"
   file_choice = STDIN.gets.chomp
   CSV.open(file_choice, "w") do |csv|
@@ -79,6 +72,7 @@ def save_students
 end
 
 def what_file
+  puts "You have chosen to load from a file"
   puts "What file do you want to load from?"
   puts "If you don't want to load from a file, press enter."
   filename = STDIN.gets.chomp
@@ -93,7 +87,7 @@ def load_students(filename = "students.csv")
       add_students(name, cohort)
     end
     puts "Loaded #{@students.count} students from #{filename}"
-  elsif file_choice == ""
+  elsif filename == ""
     puts "No file uploaded"
   else
     puts "That file does not exist"
